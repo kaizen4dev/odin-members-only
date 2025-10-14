@@ -11,6 +11,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new post_params
+    @post.user_id = current_user
 
     if @post.save
       redirect_to posts_path
@@ -22,7 +23,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.expect article: [:title, :body]
+    params.expect post: [:title, :body]
   end
 
   def require_login
